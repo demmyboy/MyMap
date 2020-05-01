@@ -1,11 +1,12 @@
 import folium 
 import pandas
 
-data = pandas.read_csv("original.csv")
+data =pandas.read_csv("original.csv")
 # to get the list of coluumns
 # print(data.columns)
 lat = list(data["LAT"])
 lon = list(data["LON"])
+elev = list(data["ELEV"])
 map = folium.Map(location=[6.5244, 3.3792], zoom_start=6, tiles="Stamen Terrain")
 
 #  Add map to a feature group 
@@ -16,11 +17,11 @@ fg = folium.FeatureGroup(name="My Map")
 #     fg.add_child(folium.Marker(location=cordinate, popup="This is where I am from", icon=folium.Icon(color="Purple")))
 
 # Below code is use to iterate through an excel file 
-for lt, ln in zip(lat, lon): 
-    fg.add_child(folium.Marker(location=[lt, ln], popup="This is where I am from", icon=folium.Icon(color="Purple")))
+for lt, ln, el  in zip(lat, lon, elev): 
+    fg.add_child(folium.Marker(location=[lt, ln], popup= el, icon=folium.Icon(color="Purple")))
 
 map.add_child(fg)
-map.save("DemmyMap.html")
+map.save("DemmyMap2.html")
 #  print(help(folium.Map))
 #  print (dir(folium))
 print(dir(pandas))
